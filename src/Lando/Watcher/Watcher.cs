@@ -118,6 +118,14 @@ namespace Lando.Watcher
 						Logger.TraceEvent(TraceEventType.Verbose, 0, "WaitForChanges operation result is " + operationResult.StatusName);
 						Logger.Flush();
 
+						switch (operationResult.StatusCode)
+						{
+							case WinscardWrapper.SCARD_E_NO_SERVICE:
+							case WinscardWrapper.SCARD_E_SERVICE_STOPPED:
+								_cardreader.ReleaseCurrentThreadContext();
+								continue;
+						}
+
 						throw new SmartCardException(operationResult);
 					}
 				}

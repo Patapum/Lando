@@ -79,6 +79,14 @@ namespace Lando.LowLevel
 			}
 		}
 
+		public void ReleaseCurrentThreadContext()
+		{
+			var threadId =Thread.CurrentThread.ManagedThreadId;
+			var threadContext = _contextManager.GetContext(threadId);
+			var releaseResult = ReleaseContext(threadContext);
+			_contextManager.ContextReleased(threadId);
+		}
+
 		private OperationResult ReleaseContext(IntPtr context)
 		{
 			int returnCode = WinscardWrapper.SCardReleaseContext(context);
