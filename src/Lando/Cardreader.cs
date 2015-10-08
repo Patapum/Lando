@@ -39,6 +39,8 @@ namespace Lando
 		/// </summary>
 		public virtual event CardreaderEventHandler CardDisconnected;
 
+		public int CardreadersCount { get { return Reader.CardreadersNumber; } }
+
 		public Cardreader()
 		{
 			LowlevelReader = new LowLevelCardReader();
