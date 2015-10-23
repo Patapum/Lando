@@ -205,7 +205,8 @@ namespace Lando.Watcher
 
 								RemoveCardreaderFromList(cardreaderStatus.Name);
 							}
-							else if (connectResult.StatusCode == WinscardWrapper.SCARD_E_NO_SMARTCARD)
+							else if (connectResult.StatusCode == WinscardWrapper.SCARD_E_NO_SMARTCARD
+								|| connectResult.StatusCode == WinscardWrapper.SCARD_W_REMOVED_CARD)
 							{
 								// card was detached too fast
 								// don't react to this
